@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_cycle_de_vie.*
+import kotlinx.android.synthetic.main.fragment_cycle_de_vie.*
 
 class CycleDeVie : AppCompatActivity() {
 
@@ -13,6 +14,19 @@ class CycleDeVie : AppCompatActivity() {
         setContentView(R.layout.activity_cycle_de_vie)
         state.text = "starting"
         Log.d( "TAG", "Create")
+        val newFragment = CycleDeVieFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.layoutcycle, newFragment)
+        transaction.commit()
+
+        buttonf1.setOnClickListener {
+            val newFragment1 = SecondFragment()
+            val transaction1 = supportFragmentManager.beginTransaction()
+            transaction1.replace(R.id.layoutcycle, newFragment1)
+            transaction1.commit()
+
+        }
+
     }
 
     override fun onRestart() {
