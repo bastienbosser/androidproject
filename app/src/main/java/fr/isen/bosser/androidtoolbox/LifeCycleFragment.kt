@@ -12,7 +12,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_cycle_de_vie.*
 import kotlinx.android.synthetic.main.fragment_cycle_de_vie.*
 
-class CycleDeVieFragment : Fragment() {
+class LifeCycleFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_cycle_de_vie.*
 
 
 
-class CycleDeVie : AppCompatActivity() {
+class LifeCycleActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +18,7 @@ class CycleDeVie : AppCompatActivity() {
         state.text = "starting"
         Log.d( "TAG", "Create")
 
-        val newFragment = CycleDeVieFragment()
+        val newFragment = LifeCycleFragment()
         val newFragment1 = SecondFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.layoutcycle, newFragment)

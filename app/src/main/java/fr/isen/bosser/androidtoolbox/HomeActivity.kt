@@ -1,6 +1,5 @@
 package fr.isen.bosser.androidtoolbox
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
         val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
 
         cycle.setOnClickListener {
-            startActivity( Intent ( this,CycleDeVie::class.java))
+            startActivity( Intent ( this,LifeCycleActivity::class.java))
         }
 
         logout.setOnClickListener {
@@ -28,6 +27,10 @@ class HomeActivity : AppCompatActivity() {
             editor.apply()
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
+        }
+
+        save.setOnClickListener {
+            startActivity( Intent ( this,FormActivity::class.java))
         }
     }
 }
