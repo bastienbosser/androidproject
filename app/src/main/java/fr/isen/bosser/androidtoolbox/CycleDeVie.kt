@@ -1,42 +1,43 @@
 package fr.isen.bosser.androidtoolbox
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_cycle_de_vie.*
-import kotlinx.android.synthetic.main.fragment_cycle_de_vie.*
+
+
 
 class CycleDeVie : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cycle_de_vie)
+
         state.text = "starting"
         Log.d( "TAG", "Create")
+
         val newFragment = CycleDeVieFragment()
         val newFragment1 = SecondFragment()
-        val transaction1 = supportFragmentManager.beginTransaction()
-        transaction1.replace(R.id.layoutcycle, newFragment)
-        transaction1.addToBackStack(null)
-        transaction1.commit()
-
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.layoutcycle, newFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
 
         change.setOnClickListener {
 
-            val transaction = supportFragmentManager.beginTransaction()
-
-            if ( newFragment.isVisible ) {
-                transaction.replace(R.id.layoutcycle, newFragment1)
+            if ( newFragment.isResumed ) {
+                Log.d("TAG", "Fragment is resumed")
+                supportFragmentManager.beginTransaction().replace(R.id.layoutcycle, newFragment1).commit()
             }
             else {
-                transaction.replace(R.id.layoutcycle, newFragment)
+                Log.d("TAG", "Fragment is resumed")
+                supportFragmentManager.beginTransaction().replace(R.id.layoutcycle, newFragment).commit()
             }
-            transaction.addToBackStack(null)
-            transaction.commit()
         }
-
     }
+
 
     override fun onRestart() {
         super.onRestart()
