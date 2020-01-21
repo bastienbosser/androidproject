@@ -15,16 +15,25 @@ class CycleDeVie : AppCompatActivity() {
         state.text = "starting"
         Log.d( "TAG", "Create")
         val newFragment = CycleDeVieFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.layoutcycle, newFragment)
-        transaction.commit()
+        val newFragment1 = SecondFragment()
+        val transaction1 = supportFragmentManager.beginTransaction()
+        transaction1.replace(R.id.layoutcycle, newFragment)
+        transaction1.addToBackStack(null)
+        transaction1.commit()
 
-        buttonf1.setOnClickListener {
-            val newFragment1 = SecondFragment()
-            val transaction1 = supportFragmentManager.beginTransaction()
-            transaction1.replace(R.id.layoutcycle, newFragment1)
-            transaction1.commit()
 
+        change.setOnClickListener {
+
+            val transaction = supportFragmentManager.beginTransaction()
+
+            if ( newFragment.isVisible ) {
+                transaction.replace(R.id.layoutcycle, newFragment1)
+            }
+            else {
+                transaction.replace(R.id.layoutcycle, newFragment)
+            }
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
     }
