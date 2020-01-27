@@ -12,7 +12,6 @@ import java.io.File
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.Level.parse
 
 
 class FormActivity : AppCompatActivity() {
@@ -50,8 +49,10 @@ class FormActivity : AppCompatActivity() {
 
 
     private fun writeData(name: String, firstname: String, birthday: String) {
+
+        val age = getAge(birthday)
         if (firstname.isNotEmpty() && name.isNotEmpty()) {
-            val data = "{'name': '$name', 'firstname': '$firstname', 'birthday': '$birthday'}"
+            val data = "{'name': '$name', 'firstname': '$firstname', 'birthday': '$birthday', 'age':'$age'}"
 
             File(cacheDir.absolutePath + Companion.JSON_FILE).writeText(data)
             Toast.makeText(this@FormActivity, "Sauvegarde des données", Toast.LENGTH_LONG).show()
@@ -67,7 +68,7 @@ class FormActivity : AppCompatActivity() {
             val strBirthday: String = jsonObject.optString("birthday")
             val strName: String = jsonObject.optString("name")
             val strFirstname: String = jsonObject.optString("firstname")
-            val strAge = getAge(birthday.text.toString())
+            val strAge: String = jsonObject.optString("age")
 
             AlertDialog.Builder(this@FormActivity )
                 .setTitle("Lecture du fichier")

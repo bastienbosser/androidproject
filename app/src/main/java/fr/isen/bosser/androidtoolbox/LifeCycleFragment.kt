@@ -1,6 +1,5 @@
 package fr.isen.bosser.androidtoolbox
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_cycle_de_vie.*
-import kotlinx.android.synthetic.main.fragment_cycle_de_vie.*
+import kotlinx.android.synthetic.main.fragment_life_cycle.*
 
 class LifeCycleFragment : Fragment() {
 
@@ -19,7 +17,7 @@ class LifeCycleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cycle_de_vie, container, false)
+        return inflater.inflate(R.layout.fragment_life_cycle, container, false)
     }
 
     interface OnFragmentInteractionListener {

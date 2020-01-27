@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_cycle_de_vie.*
+import kotlinx.android.synthetic.main.activity_life_cycle.*
 
 
 
@@ -13,7 +13,7 @@ class LifeCycleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cycle_de_vie)
+        setContentView(R.layout.activity_life_cycle)
 
         state.text = "starting"
         Log.d( "TAG", "Create")
