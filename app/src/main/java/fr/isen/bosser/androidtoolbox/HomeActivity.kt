@@ -30,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         save.setOnClickListener {
-            startActivity( Intent ( this,FormActivity::class.java))
+            startActivity( Intent ( this, FormActivity::class.java))
         }
     }
 }
