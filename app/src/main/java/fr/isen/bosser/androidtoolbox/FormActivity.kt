@@ -9,7 +9,10 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_form.*
 import org.json.JSONObject
 import java.io.File
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.logging.Level.parse
 
 
 class FormActivity : AppCompatActivity() {
@@ -27,7 +30,7 @@ class FormActivity : AppCompatActivity() {
             val dpd = DatePickerDialog(
                 this@FormActivity,
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->
-                    birthday.setText("" + day + " " + (month + 1) + ", " + year)
+                    birthday.setText("" + day + "/" + (month + 1) + "/" + year)
                 },
                 year,
                 month,
@@ -64,10 +67,11 @@ class FormActivity : AppCompatActivity() {
             val strBirthday: String = jsonObject.optString("birthday")
             val strName: String = jsonObject.optString("name")
             val strFirstname: String = jsonObject.optString("firstname")
+            val strAge = getAge(birthday.text.toString())
 
             AlertDialog.Builder(this@FormActivity )
                 .setTitle("Lecture du fichier")
-                .setMessage("Nom : $strName \n Prenom : $strFirstname \n Date : $strBirthday")
+                .setMessage("Nom : $strName \n Prenom : $strFirstname \n Date : $strBirthday \n Age : $strAge")
                 .create()
                 .show()
 
@@ -77,6 +81,41 @@ class FormActivity : AppCompatActivity() {
     companion object {
         private const val JSON_FILE = "data_user_toolbox.json"
     }
+
+    private fun getAge(date: String): Int {
+
+        var age = 0
+        try {
+            val date1 = SimpleDateFormat("dd/MM/yyyy").parse(date)
+            val now = Calendar.getInstance()
+            val dob = Calendar.getInstance()
+            dob.time = date1
+            if (dob.after(now)) {
+                throw IllegalArgumentException("Can't be born in the future")
+            }
+            val year1 = now.get(Calendar.YEAR)
+            val year2 = dob.get(Calendar.YEAR)
+            age = year1 - year2
+            val month1 = now.get(Calendar.MONTH)
+            val month2 = dob.get(Calendar.MONTH)
+            if (month2 > month1) {
+                age--
+            } else if (month1 == month2) {
+                val day1 = now.get(Calendar.DAY_OF_MONTH)
+                val day2 = dob.get(Calendar.DAY_OF_MONTH)
+                if (day2 > day1) {
+                    age--
+                }
+            }
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+        return age
+
+    }
 }
+
+
 
 
