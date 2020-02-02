@@ -4,19 +4,23 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_information.*
 
 
 class InformationActivity : AppCompatActivity() {
+
+    private var contactList = arrayListOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +29,13 @@ class InformationActivity : AppCompatActivity() {
         myimage.setOnClickListener{
             optionImage()
         }
+
+        checkContacts()
+        val sortedList = contactList.sortedWith(compareBy { it.name })
+
+        recyclerViewList.layoutManager = LinearLayoutManager(this)
+        recyclerViewList.adapter = RecyclerViewAdapter(ArrayList(sortedList),this)
+
     }
 
 
@@ -53,15 +64,15 @@ class InformationActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED){
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    requestPermissions(permissions, PERMISSION_CODE);
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permissions, PERMISSION_CODE)
                 }
                 else{
-                    pickImageFromGallery();
+                    pickImageFromGallery()
                 }
             }
             else{
-                pickImageFromGallery();
+                pickImageFromGallery()
             }
         }
 
@@ -90,9 +101,10 @@ class InformationActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val IMAGE_PICK_CODE = 1000;
-        private val PERMISSION_CODE = 1001;
-        private val CAMERA_PICK_CODE = 1002;
+        private const val IMAGE_PICK_CODE = 1000
+        private const val PERMISSION_CODE = 1001
+        private const val CAMERA_PICK_CODE = 1002
+        private const val READ_CONTACTS_CODE = 100
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -115,6 +127,15 @@ class InformationActivity : AppCompatActivity() {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
+            READ_CONTACTS_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    checkContacts()
+                }
+                else{
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -128,4 +149,41 @@ class InformationActivity : AppCompatActivity() {
             myimage.setImageBitmap(data?.extras?.get("data") as Bitmap)
         }
     }
+
+    class User {
+        var id:String = ""
+        var name:String = ""
+        var phoneNumber:String = ""
+    }
+
+    private fun checkContacts() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(
+                Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS),
+                READ_CONTACTS_CODE)
+        } else {
+            getContacts()
+        }
+    }
+
+    private fun getContacts(): StringBuilder {
+        val builder = StringBuilder()
+        val cursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null,null)
+
+        cursor?.let {
+            while (it.moveToNext()) {
+                val user = User()
+                user.id = it.getString(it.getColumnIndex(ContactsContract.Contacts._ID))
+                user.name = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                user.phoneNumber = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                contactList.add(user)
+            }
+            it.close()
+        }
+        Log.d("TAG", contactList[0].id)
+        return builder
+    }
+
+
 }
