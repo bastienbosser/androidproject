@@ -4,23 +4,35 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.location.Location
+import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.provider.ContactsContract
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import kotlinx.android.synthetic.main.activity_information.*
 
 
 class InformationActivity : AppCompatActivity() {
 
     private var contactList = arrayListOf<User>()
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +47,9 @@ class InformationActivity : AppCompatActivity() {
 
         recyclerViewList.layoutManager = LinearLayoutManager(this)
         recyclerViewList.adapter = RecyclerViewAdapter(ArrayList(sortedList),this)
+
+        mFusedLocationClient = getFusedLocationProviderClient(this)
+        getLastLocation()
 
     }
 
@@ -76,7 +91,7 @@ class InformationActivity : AppCompatActivity() {
             }
         }
 
-        builder.setNegativeButton("Take Picture"){dialog,which ->
+        builder.setNegativeButton("Take Picture"){ _ , _ ->
             Toast.makeText(applicationContext,"go to camera",Toast.LENGTH_SHORT).show()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if (checkSelfPermission(Manifest.permission.CAMERA) ==
@@ -105,6 +120,7 @@ class InformationActivity : AppCompatActivity() {
         private const val PERMISSION_CODE = 1001
         private const val CAMERA_PICK_CODE = 1002
         private const val READ_CONTACTS_CODE = 100
+        private const val LOCATION_ID_CODE = 102
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -131,6 +147,15 @@ class InformationActivity : AppCompatActivity() {
                 if (grantResults.isNotEmpty() && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED){
                     checkContacts()
+                }
+                else{
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+            LOCATION_ID_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    getLastLocation()
                 }
                 else{
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
@@ -183,6 +208,70 @@ class InformationActivity : AppCompatActivity() {
         }
         Log.d("TAG", contactList[0].id)
         return builder
+    }
+
+    private fun getLastLocation() {
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+
+                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
+                    val location: Location? = task.result
+                    if (location == null) {
+                        requestNewLocationData()
+                    } else {
+                        latitudeDisplay.text = location.latitude.toString()
+                        longitudeDisplay.text = location.longitude.toString()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            requestPermissions()
+        }
+    }
+
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true
+        }
+        return false
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_ID_CODE)
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+        val mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.numUpdates = 1
+        mLocationRequest.interval = 10000
+        mLocationRequest.fastestInterval = 5000
+
+        mFusedLocationClient = getFusedLocationProviderClient(this)
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+    }
+
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val mLastLocation: Location = locationResult.lastLocation
+            latitude.text = mLastLocation.latitude.toString()
+            longitude.text = mLastLocation.longitude.toString()
+        }
     }
 
 
