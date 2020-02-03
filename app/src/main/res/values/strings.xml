@@ -4,9 +4,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Déconnexion</string>
-    <string name="nameForm">name</string>
-    <string name="firstnameForm">firstname</string>
-    <string name="birthdateForm">birthdate</string>
+    <string name="nameForm">Nom</string>
+    <string name="firstnameForm">Prénom</string>
+    <string name="birthdateForm">Anniversaire</string>
     <string name="saveForm">save</string>
     <string name="readForm">Read</string>
     <string name="textInformation">Accès aux informations Android</string>
@@ -20,4 +20,13 @@
     <string name="idDisplayIdCell">id_space</string>
     <string name="idCellId">id :</string>
     <string name="loginTitle">Connexion</string>
+    <string name="loginValidate">Valider</string>
+    <string name="login">Identifiant</string>
+    <string name="password">Mot de passe</string>
+    <string name="pictureWeb">picture</string>
+    <string name="nameWeb">name</string>
+    <string name="addressWeb">address</string>
+    <string name="emailWeb">email</string>
+    <string name="stateFragment">fragment 1</string>
+    <string name="secondFragment">fragment 2</string>
 </resources>

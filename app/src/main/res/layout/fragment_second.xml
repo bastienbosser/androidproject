@@ -8,14 +8,13 @@
     tools:context=".LifeCycleFragment"
     android:id="@+id/secondfragment">
 
-    <Button
-        android:id="@+id/buttonf2"
+    <TextView
+        android:id="@+id/secondFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:text="Button"
+        android:layout_marginTop="100dp"
+        android:text="@string/secondFragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

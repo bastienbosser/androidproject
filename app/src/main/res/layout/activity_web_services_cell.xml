@@ -10,7 +10,7 @@
         android:layout_width="91dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        android:contentDescription="picture"
+        android:contentDescription="@string/pictureWeb"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/sym_def_app_icon" />
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="name"
+        android:text="@string/nameWeb"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/pictureWeb"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="address"
+        android:text="@string/addressWeb"
         app:layout_constraintStart_toStartOf="@+id/nameWeb"
         app:layout_constraintTop_toBottomOf="@+id/nameWeb" />
 
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="email"
+        android:text="@string/emailWeb"
         app:layout_constraintStart_toStartOf="@+id/addressWeb"
         app:layout_constraintTop_toBottomOf="@+id/addressWeb" />
 
