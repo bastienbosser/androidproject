@@ -4,4 +4,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Déconnexion</string>
+    <string name="nameForm">name</string>
+    <string name="firstnameForm">firstname</string>
+    <string name="birthdateForm">birthdate</string>
+    <string name="saveForm">save</string>
+    <string name="readForm">Read</string>
+    <string name="textInformation">Accès aux informations Android</string>
+    <string name="latitudeInformation">Latitude :</string>
+    <string name="longitudeInformation">Longitude :</string>
+    <string name="imageDescription">Description</string>
+    <string name="callNameId">nom :</string>
+    <string name="idPhoneNumberCell">tel :</string>
+    <string name="idDisplayNameCell">name_space</string>
+    <string name="idDisplayPhoneCell">phone_space</string>
+    <string name="idDisplayIdCell">id_space</string>
+    <string name="idCellId">id :</string>
+    <string name="loginTitle">Connexion</string>
 </resources>

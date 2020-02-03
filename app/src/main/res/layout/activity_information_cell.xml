@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:text="@string/callNameId"
         android:textColor="@color/colorBlack"
-        android:text="name:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:text="@string/idPhoneNumberCell"
         android:textColor="@color/colorBlack"
-        android:text="phone_number:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/callNameId" />
 
@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:text="@string/idDisplayNameCell"
         android:textColor="@color/colorBlack"
-        android:text="name_space"
         app:layout_constraintStart_toEndOf="@+id/callNameId"
         app:layout_constraintTop_toTopOf="@+id/callNameId" />
 
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="phone_space"
+        android:text="@string/idDisplayPhoneCell"
         android:textColor="@color/colorBlack"
         app:layout_constraintStart_toEndOf="@+id/idPhoneNumberCell"
         app:layout_constraintTop_toTopOf="@+id/idPhoneNumberCell" />
@@ -52,8 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:text="@string/idDisplayIdCell"
         android:textColor="@color/colorBlack"
-        android:text="id_space"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/idDisplayNameCell" />
 
@@ -62,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
+        android:text="@string/idCellId"
         android:textColor="@color/colorBlack"
-        android:text="id:"
         app:layout_constraintEnd_toStartOf="@+id/idDisplayIdCell"
         app:layout_constraintTop_toTopOf="@+id/idDisplayIdCell" />
 </androidx.constraintlayout.widget.ConstraintLayout>

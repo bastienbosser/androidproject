@@ -19,7 +19,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="name" />
+            android:hint="@string/nameForm" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,7 +35,7 @@
             android:id="@+id/firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="firstname" />
+            android:hint="@string/firstnameForm" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_width="150dp"
         android:layout_height="20dp"
         android:layout_marginTop="20dp"
-        android:text="birthdate"
+        android:text="@string/birthdateForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Save"
+        android:text="@string/saveForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/birthday" />
@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Read"
+        android:text="@string/readForm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveform" />
