@@ -28,8 +28,8 @@ class FormActivity : AppCompatActivity() {
         birthday.setOnClickListener {
             val dpd = DatePickerDialog(
                 this@FormActivity,
-                DatePickerDialog.OnDateSetListener { view, year, month, day ->
-                    birthday.setText("" + day + "/" + (month + 1) + "/" + year)
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    birthday.text = "" + day + "/" + (month + 1) + "/" + year
                 },
                 year,
                 month,

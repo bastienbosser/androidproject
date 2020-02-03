@@ -8,8 +8,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
-    val PRIVATE_MODE = 0
-    val PREF_NAME = "mindorks-welcome"
+    private val PRIVATE_MODE = 0
+    private val PREF_NAME = "mindorks-welcome"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,10 @@ class HomeActivity : AppCompatActivity() {
 
         permission.setOnClickListener {
             startActivity( Intent(this, InformationActivity::class.java))
+        }
+
+        webservices.setOnClickListener {
+            startActivity( Intent(this, WebServicesActivity::class.java))
         }
     }
 }
