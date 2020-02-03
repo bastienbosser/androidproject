@@ -1,4 +1,4 @@
-package fr.isen.bosser.androidtoolbox
+package fr.isen.bosser.androidtoolbox.adapter
 
 import android.content.Context
 import android.util.Log
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import fr.isen.bosser.androidtoolbox.activity.InformationActivity
+import fr.isen.bosser.androidtoolbox.activity.R
 import kotlinx.android.synthetic.main.activity_information_cell.view.*
 
 class RecyclerViewAdapter(private val items : ArrayList<InformationActivity.User>, val context: Context) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -15,7 +17,10 @@ class RecyclerViewAdapter(private val items : ArrayList<InformationActivity.User
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view: View = inflater.inflate(R.layout.activity_information_cell, parent, false)
-        return ViewHolder(items,view)
+        return ViewHolder(
+            items,
+            view
+        )
     }
 
     override fun getItemCount(): Int {

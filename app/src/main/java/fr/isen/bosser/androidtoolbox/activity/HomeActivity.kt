@@ -1,4 +1,4 @@
-package fr.isen.bosser.androidtoolbox
+package fr.isen.bosser.androidtoolbox.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,18 +15,13 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-
         cycle.setOnClickListener {
-            startActivity( Intent ( this,LifeCycleActivity::class.java))
+            startActivity( Intent ( this,
+                LifeCycleActivity::class.java))
         }
 
         logout.setOnClickListener {
-            val editor = sharedPref.edit()
-            editor.clear()
-            editor.apply()
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            startActivity(loginIntent)
+            logout()
         }
 
         save.setOnClickListener {
@@ -40,5 +35,14 @@ class HomeActivity : AppCompatActivity() {
         webservices.setOnClickListener {
             startActivity( Intent(this, WebServicesActivity::class.java))
         }
+    }
+
+    private fun logout() {
+        val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, PRIVATE_MODE)
+        val editor = sharedPref.edit()
+        editor.clear()
+        editor.apply()
+        val loginIntent = Intent(this, LoginActivity::class.java)
+        startActivity(loginIntent)
     }
 }

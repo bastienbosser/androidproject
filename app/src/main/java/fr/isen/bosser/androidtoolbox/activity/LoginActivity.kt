@@ -1,4 +1,4 @@
-package fr.isen.bosser.androidtoolbox
+package fr.isen.bosser.androidtoolbox.activity
 
 
 import android.content.Intent
@@ -30,7 +30,8 @@ class LoginActivity : AppCompatActivity() {
             val password = password.text.toString()
             val message = "identifiant ou mot de passe invalide"
             if (login=="admin" && password=="123") {
-                startActivity( Intent(this,HomeActivity::class.java) )
+                startActivity( Intent(this,
+                    HomeActivity::class.java) )
                 val editor = sharedPref.edit()
                 editor.putBoolean(PREF_NAME, true)
                 editor.apply()

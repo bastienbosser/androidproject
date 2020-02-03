@@ -1,4 +1,4 @@
-package fr.isen.bosser.androidtoolbox
+package fr.isen.bosser.androidtoolbox.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -26,6 +26,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+import fr.isen.bosser.androidtoolbox.adapter.RecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_information.*
 
 
@@ -46,7 +47,11 @@ class InformationActivity : AppCompatActivity() {
         val sortedList = contactList.sortedWith(compareBy { it.name })
 
         recyclerViewList.layoutManager = LinearLayoutManager(this)
-        recyclerViewList.adapter = RecyclerViewAdapter(ArrayList(sortedList),this)
+        recyclerViewList.adapter =
+            RecyclerViewAdapter(
+                ArrayList(sortedList),
+                this
+            )
 
         mFusedLocationClient = getFusedLocationProviderClient(this)
         getLastLocation()
@@ -57,13 +62,17 @@ class InformationActivity : AppCompatActivity() {
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        startActivityForResult(intent,
+            IMAGE_PICK_CODE
+        )
     }
 
     private fun pickImageFromCamera() {
         val intent1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (intent1.resolveActivity(packageManager) != null) {
-            startActivityForResult(intent1, CAMERA_PICK_CODE)
+            startActivityForResult(intent1,
+                CAMERA_PICK_CODE
+            )
         }
     }
 
@@ -80,7 +89,9 @@ class InformationActivity : AppCompatActivity() {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED){
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    requestPermissions(permissions, PERMISSION_CODE)
+                    requestPermissions(permissions,
+                        PERMISSION_CODE
+                    )
                 }
                 else{
                     pickImageFromGallery()
@@ -97,7 +108,9 @@ class InformationActivity : AppCompatActivity() {
                 if (checkSelfPermission(Manifest.permission.CAMERA) ==
                     PackageManager.PERMISSION_DENIED){
                     val permissions = arrayOf(Manifest.permission.CAMERA)
-                    requestPermissions(permissions, CAMERA_PICK_CODE)
+                    requestPermissions(permissions,
+                        CAMERA_PICK_CODE
+                    )
                 }
                 else{
                     pickImageFromCamera()
@@ -186,7 +199,8 @@ class InformationActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS),
-                READ_CONTACTS_CODE)
+                READ_CONTACTS_CODE
+            )
         } else {
             getContacts()
         }
@@ -198,7 +212,8 @@ class InformationActivity : AppCompatActivity() {
 
         cursor?.let {
             while (it.moveToNext()) {
-                val user = User()
+                val user =
+                    User()
                 user.id = it.getString(it.getColumnIndex(ContactsContract.Contacts._ID))
                 user.name = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 user.phoneNumber = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
@@ -244,7 +259,9 @@ class InformationActivity : AppCompatActivity() {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_ID_CODE)
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_ID_CODE
+        )
     }
 
     private fun isLocationEnabled(): Boolean {

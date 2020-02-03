@@ -1,4 +1,4 @@
-package fr.isen.bosser.androidtoolbox
+package fr.isen.bosser.androidtoolbox.activity
 
 
 import android.app.AlertDialog
@@ -54,13 +54,13 @@ class FormActivity : AppCompatActivity() {
         if (firstname.isNotEmpty() && name.isNotEmpty()) {
             val data = "{'name': '$name', 'firstname': '$firstname', 'birthday': '$birthday', 'age':'$age'}"
 
-            File(cacheDir.absolutePath + Companion.JSON_FILE).writeText(data)
+            File(cacheDir.absolutePath + JSON_FILE).writeText(data)
             Toast.makeText(this@FormActivity, "Sauvegarde des données", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun readData() {
-        val dataJson: String = File(cacheDir.absolutePath + Companion.JSON_FILE).readText()
+        val dataJson: String = File(cacheDir.absolutePath + JSON_FILE).readText()
 
         if (dataJson.isNotEmpty()) {
             val jsonObject = JSONObject(dataJson)
