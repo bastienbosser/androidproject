@@ -23,14 +23,13 @@ class WebServicesActivity : AppCompatActivity() {
 
     private fun jsonParse() {
         val mQueue = Volley.newRequestQueue(this)
-        var webUsers : RandomUser
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET,
             "https://randomuser.me/api/?inc=name%2Cpicture%2Clocation%2Cemail&noinfo=&nat=fr&format=pretty&results=12",
             null,
             Response.Listener { response ->
                 val gson = Gson()
-                webUsers = gson.fromJson(response.toString(), RandomUser::class.java)
+                var webUsers : RandomUser = gson.fromJson(response.toString(), RandomUser::class.java)
 
                 recyclerViewWeb.layoutManager = LinearLayoutManager(this)
                 recyclerViewWeb.adapter =
