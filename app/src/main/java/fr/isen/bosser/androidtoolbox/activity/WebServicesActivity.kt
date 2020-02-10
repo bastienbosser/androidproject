@@ -19,20 +19,25 @@ class WebServicesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_services)
         jsonParse()
-
     }
 
-    private fun jsonParse(): RandomUser {
+    private fun jsonParse() {
         val mQueue = Volley.newRequestQueue(this)
-        var webUsers = RandomUser()
+        var webUsers : RandomUser
         val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, "https://randomuser.me/api/?inc=name%2Cpicture%2Clocation%2Cemail&noinfo=&nat=fr&format=pretty&results=10", null,
+            Request.Method.GET,
+            "https://randomuser.me/api/?inc=name%2Cpicture%2Clocation%2Cemail&noinfo=&nat=fr&format=pretty&results=12",
+            null,
             Response.Listener { response ->
-                val mygson = Gson()
-                webUsers = mygson.fromJson(response.toString(), RandomUser::class.java)
+                val gson = Gson()
+                webUsers = gson.fromJson(response.toString(), RandomUser::class.java)
 
                 recyclerViewWeb.layoutManager = LinearLayoutManager(this)
-                recyclerViewWeb.adapter = RecyclerViewAdapterWeb(webUsers,this)
+                recyclerViewWeb.adapter =
+                    RecyclerViewAdapterWeb(
+                        webUsers,
+                        this
+                    )
 
             },
             Response.ErrorListener {
@@ -40,6 +45,5 @@ class WebServicesActivity : AppCompatActivity() {
             }
         )
         mQueue.add(jsonObjectRequest)
-        return webUsers
     }
 }

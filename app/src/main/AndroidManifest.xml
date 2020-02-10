@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".WebServicesActivity"></activity>
+        <activity android:name=".WebServicesActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".FormActivity" />
         <activity android:name=".LifeCycleActivity" />

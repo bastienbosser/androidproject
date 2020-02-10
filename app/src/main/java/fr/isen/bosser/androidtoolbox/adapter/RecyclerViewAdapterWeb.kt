@@ -10,17 +10,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import fr.isen.bosser.androidtoolbox.activity.R
+import fr.isen.bosser.androidtoolbox.adapter.RecyclerViewAdapterWeb.*
 import fr.isen.bosser.androidtoolbox.otherclass.RandomUser
 import kotlinx.android.synthetic.main.activity_web_services_cell.view.*
 
 
-class RecyclerViewAdapterWeb(private val users: RandomUser, val context: Context) : RecyclerView.Adapter<RecyclerViewAdapterWeb.ViewHolderWeb>() {
+class RecyclerViewAdapterWeb(private val users: RandomUser, val context: Context) : RecyclerView.Adapter<ViewHolderWeb>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderWeb {
         val inflater = LayoutInflater.from(parent.context)
         val view: View = inflater.inflate(R.layout.activity_web_services_cell, parent, false)
-        return ViewHolderWeb(users, view, context)
+        return ViewHolderWeb(
+            users,
+            view,
+            context
+        )
     }
 
     override fun getItemCount(): Int {

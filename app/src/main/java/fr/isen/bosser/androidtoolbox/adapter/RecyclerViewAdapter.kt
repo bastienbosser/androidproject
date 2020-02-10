@@ -37,7 +37,7 @@ class RecyclerViewAdapter(private val items : ArrayList<InformationActivity.User
         private val phone: TextView = view.idDisplayPhoneCell
 
 
-        fun loadInfo(index:Int){
+        fun loadInfo(index: Int){
             id.text = contactList[index].id
             Log.d("TAG",contactList[index].id)
             name.text = contactList[index].name
